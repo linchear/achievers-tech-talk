@@ -1,0 +1,20 @@
+{
+    "name": "achievers/tax-bundle",
+    "description": "Tax Bundle",
+    "version": "1.0",
+    "type": "library",
+    "require": {
+        "symfony/orm-pack": "^1.0"
+    },
+    "authors": [
+        {
+            "name": "Lin Chear",
+            "email": "lin.chear@achievers.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Tax\\": "src/"
+        }
+    }
+}

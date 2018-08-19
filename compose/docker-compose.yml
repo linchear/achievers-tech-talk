@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+  proxy:
+    container_name: tech-proxy
+    image: tech-proxy:latest
+    build: ../proxy
+    ports:
+      - 80:80
+    depends_on:
+      - catalogue
+      - shopping-cart
+      - store-service
+
+  catalogue:
+    # name of the container when it runs
+    container_name: catalogue-service
+    # build definition if the image is not present.
+    #  - args are passed into Dockerfile
+    #  - context the directory to build from
+    build:
+      args:
+        - PROJECT_NAME=catalogue-service
+      context: ../lessons/catalogue
+    # name of the image to use
+    image: catalogue-service:latest
+    volumes:
+      - ./run/secrets:/run/secrets
+
+  shopping-cart:
+    container_name: shopping-cart
+    build:
+      args:
+        - PROJECT_NAME=shopping-cart
+      context: ../lessons/shopping-cart
+    image: shopping-cart:latest
+    volumes:
+    - ./run/secrets:/run/secrets
+
+  store-service:
+    container_name: store-service
+    build:
+      args:
+        - PROJECT_NAME=store-service
+      context: ../lessons/store
+    image: store-service:latest
+    volumes:
+    - ./run/secrets:/run/secrets
+    ports:
+      - 8080:80
+
+  ## Database
+  mysql:
+    container_name: tech-mysql
+    image: mysql:5.7
+    # volumes provide persistent storage
+    volumes:
+      - ./data:/var/lib/mysql
+    ports:
+      - 13306:3306
+    # environment variables can be injected into the container
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+
+networks:
+  tech-demo-nework:
+    driver: bridge
+    ipam:
+      driver: default
+

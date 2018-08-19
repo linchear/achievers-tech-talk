@@ -1,0 +1,20 @@
+{
+    "name": "achievers/cart-bundle",
+    "description": "Cart Bundle",
+    "version": "1.0",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "authors": [
+        {
+            "name": "Lin Chear",
+            "email": "lin.chear@achievers.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Cart\\": "src/"
+        }
+    }
+}
